@@ -27,6 +27,7 @@ export default class AuthService {
       })
   }
 
+
   register(creds, draw) {
 
     _auth.post("register", creds)
@@ -51,6 +52,8 @@ export default class AuthService {
         drawOnFail()
       })
   }
+
+
 
   logout(draw) {
     _auth.delete("logout")

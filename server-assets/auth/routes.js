@@ -1,6 +1,7 @@
 let router = require('express').Router();
 let Users = require('../models/user');
 let session = require('./session')
+let Ships = require('../models/ship')
 
 let loginError = new Error('Bad email or password')
 
@@ -10,15 +11,21 @@ router.post('/register', (req, res) => {
       error: "Password must be at least 6 characters"
     })
   }
-  req.body.password = Users.generateHash(req.body.password)
-  Users.create(req.body)
-    .then(user => {
-      delete user._doc.password
-      req.session.uid = user._id
-      res.send(user)
-    })
-    .catch(err => {
-      res.status(400).send(err)
+  let userShip = ''
+  Ships.find({})
+    .then(ships => {
+      userShip = ships[Math.floor((Math.random() * ships.length))]
+      req.body.password = Users.generateHash(req.body.password)
+      req.body.shipID = userShip._id
+      Users.create(req.body)
+        .then(user => {
+          delete user._doc.password
+          req.session.uid = user._id
+          res.send(user)
+        })
+        .catch(err => {
+          res.status(400).send(err)
+        })
     })
 })
 

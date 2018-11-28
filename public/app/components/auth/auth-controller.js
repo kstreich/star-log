@@ -27,8 +27,7 @@ function _drawRegister() {
     <input type="password" name="password" placeholder="password" required>
     <button type="submit">Register</button>
   </form>
-  <input checkbox type="checkbox" name="ship1" value="ship1"> Ship One
-  <input checkbox type="checkbox" name="ship1" value="ship1"> Ship Two
+
   <p onclick="app.controllers.authController.showLogin()">Existing User?</p>
   `
 }
@@ -38,6 +37,10 @@ export default class AuthController {
 
     _authService = auth
     _authService.authenticate(drawLogout, drawUserLogin)
+  }
+
+  drawShipId() {
+
   }
 
   login(event) {
