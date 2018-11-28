@@ -4,7 +4,7 @@ let session = require('./session')
 
 let loginError = new Error('Bad email or password')
 
-router.post('/auth/register', (req, res) => {
+router.post('/register', (req, res) => {
   if (req.body.password.length < 5) {
     return res.status(400).send({
       error: "Password must be at least 6 characters"
@@ -22,7 +22,7 @@ router.post('/auth/register', (req, res) => {
     })
 })
 
-router.post('/auth/login', (req, res) => {
+router.post('/login', (req, res) => {
   Users.findOne({
     email: req.body.email
   })
@@ -42,7 +42,7 @@ router.post('/auth/login', (req, res) => {
     })
 })
 
-router.delete('/auth/logout', (req, res) => {
+router.delete('/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) {
       return res.send(err)
